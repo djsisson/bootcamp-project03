@@ -16,7 +16,7 @@
         <button class="open-sidebar">☰</button>
         <form action="" class="search">
           <label for="search"> </label
-          ><input id="search" type="search" class="search-input" title="Search" placeholder="" name="input"/><button
+          ><input id="search" type="search" class="search-input" title="Please enter a valid search term." pattern="[a-zA-Z][0-9]+" placeholder="Search Term" name="input" required/><button
             type="submit"
             class="submit"
           >
@@ -57,7 +57,7 @@
 
       </div>
       <div class="thumbnail-viewer">
-        <button class="prev-thumbnail">P</button>
+        <button class="prev-thumbnail">←</button>
           <ul class="thumbnail-list">
             <li class="thumbnail-item">1</li>
             <li class="thumbnail-item">2</li>
@@ -70,7 +70,7 @@
             <li class="thumbnail-item">9</li>
             <li class="thumbnail-item">10</li>
           </ul>
-          <button class="next-thumbnail">N</button>
+          <button class="next-thumbnail">→</button>
         </div>
     </main>
     <footer></footer>

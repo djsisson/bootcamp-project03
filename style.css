@@ -138,6 +138,12 @@ main {
     font-size: 32px;
     color: #fff;
     text-shadow: 0 2px 1px rgba(0, 0, 0, 0.4);
+    border: solid 5px transparent;
+    border-bottom: none;
+  }
+
+  .thumbnail-item.active{
+    border: solid white 5px;
   }
   
   .thumbnail-item:nth-child(4n + 1) {

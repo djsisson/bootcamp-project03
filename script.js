@@ -44,19 +44,26 @@ function eventHandlers() {
   document.querySelector(".search").addEventListener("submit",(e) =>{
     e.preventDefault();
   })
+  const scrollAmount = g_thumbnails.children[0].getBoundingClientRect().width
   document.querySelector(".prev-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollBy({left: -400,behavior:"smooth"})
+    console.log(scrollAmount)
+    g_thumbnails.scrollTo({left: 0,behavior:"smooth"})
   });
   document.querySelector(".next-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollBy({left: 400,behavior:"smooth"})
+    g_thumbnails.scrollTo({left: scrollAmount*10,behavior:"smooth"})
   });
+  
 }
 
 function activateIndicator(index) {
+    
     index = ((index % 10)+ 10) % 10;
   g_currentlyActive = index;
   Array.from(g_indicators.children).forEach((indicator, i) => {
     indicator.classList.toggle("active", i === g_currentlyActive);
+  });
+  Array.from(g_thumbnails.children).forEach((thumbnail, i) => {
+    thumbnail.classList.toggle("active", i === g_currentlyActive);
   });
 
   g_imagelist.children[g_currentlyActive].scrollIntoView({

@@ -17,6 +17,8 @@ main {
   height: 100%;
   position: relative;;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -80,6 +82,22 @@ main {
   .image-list::-webkit-scrollbar {
     display: none;
   }
+
+  .thumbnail-list {
+    display: flex;
+    overflow-x: scroll;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    list-style: none;
+    width: 100%;
+    height: 100px;
+  }
+  .thumbnail-list::-webkit-scrollbar {
+    display: none;
+  }
   
   .image-item {
     height: 100%;
@@ -106,6 +124,33 @@ main {
   }
   .image-item:nth-child(4n + 4) {
     background-color: #2cccc3;
+  }
+
+  .thumbnail-item {
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: #fff;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.4);
+  }
+  
+  .thumbnail-item:nth-child(4n + 1) {
+    background-color: #5626c4;
+  }
+  .thumbnail-item:nth-child(4n + 2) {
+    background-color: #facd3d;
+  }
+  .thumbnail-item:nth-child(4n + 3) {
+    background-color: #2cccc3;
+  }
+  .thumbnail-item:nth-child(4n + 4) {
+    background-color: #e60576;
   }
   
   .indicatorsList {
@@ -151,7 +196,7 @@ main {
     overflow: hidden;
     
  }
- .thumbanil-viewer{
+ .thumbnail-viewer{
     display: none;
  }
 
@@ -190,12 +235,25 @@ main {
     .indicatorsList{
         display: none;
     }
-    .thumbanil-viewer{
-        display: unset;
+    .thumbnail-viewer{
+        display:flex;
     }
   }
   @media only screen and (min-width: 1000px) {
     body {
       background-color: green;
+    }
+    .prev-thumbnail, .next-thumbnail{
+        display: none;
+    }
+    .thumbnail-item{
+        width: unset;
+        height: unset;
+        flex-grow: 0.1;
+    }
+    .thumbnail-list{
+        height: calc(100svw / 10);
+        justify-content: center;
+        gap: 5px
     }
   }

@@ -3,6 +3,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  border-collapse: collapse;
 }
 
 body {
@@ -24,7 +25,6 @@ main {
 
 
 .open-sidebar{
-    position: absolute;
     z-index: 1;
 }
 
@@ -35,12 +35,19 @@ main {
   justify-content: center;
   flex-wrap: nowrap;
 }
+
+.search-form *{
+    font-size: 2rem;
+    z-index: 1;
+}
+
 .search{
     display: flex;
     width: 100%;
 }
 .search-input{
     width: 100%;
+    
 }
 
 .sidebar {
@@ -111,20 +118,17 @@ main {
     font-size: 32px;
     color: #fff;
     text-shadow: 0 2px 1px rgba(0, 0, 0, 0.4);
+    position: relative;
   }
-  
-  .image-item:nth-child(4n + 1) {
-    background-color: #facd3d;
-  }
-  .image-item:nth-child(4n + 2) {
-    background-color: #5626c4;
-  }
-  .image-item:nth-child(4n + 3) {
-    background-color: #e60576;
-  }
-  .image-item:nth-child(4n + 4) {
-    background-color: #2cccc3;
-  }
+
+  .mainImg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
   .thumbnail-item {
     height: 100px;
@@ -141,23 +145,16 @@ main {
     border: solid 5px transparent;
     border-bottom: none;
   }
+  .thumbnailImg{
+    width: 100%;
+    height: 100%;
+  }
 
   .thumbnail-item.active{
-    border: solid white 5px;
+    border: solid red 5px;
   }
   
-  .thumbnail-item:nth-child(4n + 1) {
-    background-color: #5626c4;
-  }
-  .thumbnail-item:nth-child(4n + 2) {
-    background-color: #facd3d;
-  }
-  .thumbnail-item:nth-child(4n + 3) {
-    background-color: #2cccc3;
-  }
-  .thumbnail-item:nth-child(4n + 4) {
-    background-color: #e60576;
-  }
+
   
   .indicatorsList {
     padding: 20px;
@@ -207,9 +204,6 @@ main {
  }
 
  @media screen and (min-width: 600px) and (min-height: 600px) {
-    body {
-      background-color: red;
-    }
     .sidebar {
       display: none;
     }
@@ -246,9 +240,7 @@ main {
     }
   }
   @media only screen and (min-width: 1000px) {
-    body {
-      background-color: green;
-    }
+
     .prev-thumbnail, .next-thumbnail{
         display: none;
     }
@@ -256,10 +248,21 @@ main {
         width: unset;
         height: unset;
         flex-grow: 0.1;
+        position: relative;
     }
+    .thumbnailImg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     .thumbnail-list{
         height: calc(100svw / 10);
+        width: 100%;
         justify-content: center;
-        gap: 5px
+        z-index: 1;
     }
   }

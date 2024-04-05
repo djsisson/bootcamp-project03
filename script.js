@@ -10,6 +10,18 @@ let scrollTimeout = 0;
 let g_currentlyActive = 0;
 
 function eventHandlers() {
+  document.addEventListener("keydown", (e) => {
+    if (e.code=="ArrowLeft"){
+      activateIndicator(g_currentlyActive-=1);
+    }else if (e.code=="ArrowRight") {
+      activateIndicator(g_currentlyActive+=1);
+    }
+  })
+  g_imagelist.addEventListener("scrollend", (e) => {
+    activateIndicator(
+      g_imagelist.scrollLeft / g_imagelist.getBoundingClientRect().width
+    );
+  });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
   });
@@ -37,9 +49,6 @@ function eventHandlers() {
       e.stopPropagation();
     })
   );
-  document.querySelector(".search").addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
   Array.from(g_thumbnails.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
       g_imagelist.children[i].scrollIntoView({
@@ -50,6 +59,9 @@ function eventHandlers() {
       e.stopPropagation();
     })
   );
+  document.querySelector(".search").addEventListener("keydown", (e) => {
+    e.stopPropagation();
+  })
   document.querySelector(".search").addEventListener("submit", (e) => {
     e.preventDefault();
     getImages(e.target.input.value);
@@ -93,28 +105,39 @@ function myscroll() {
 
 eventHandlers();
 activateIndicator(0);
-getImages("count=10");
+getImages(`count=10`, true);
 
-async function getImages(query) {
-  let response = await fetch(`${g_Url}query=${query}&client_id=${API_KEY}`);
+async function getImages(query, random = false) {
+  let urlToSend = "";
+  if (random) {
+    urlToSend = `${g_RandUrl}${query}&client_id=${API_KEY}`;
+  } else {
+    urlToSend = `${g_Url}query=${query}&client_id=${API_KEY}`;
+  }
+  let response = await fetch(urlToSend);
   let data = await response.json();
-  g_images = data.results;
+  if (random) {
+    g_images = data;
+  } else {
+    g_images = data.results;
+  }
+
   loadImages();
 }
 
-function loadImages(){
-for (let i = 0; i < g_images.length; i++){
+function loadImages() {
+  for (let i = 0; i < g_images.length; i++) {
     g_thumbnails.children[i].innerHTML = "";
     let thumbnailImg = document.createElement("img");
-    thumbnailImg.src=g_images[i].urls.thumb;
-    thumbnailImg.alt=g_images[i].alt_description;
+    thumbnailImg.src = g_images[i].urls.thumb;
+    thumbnailImg.alt = g_images[i].alt_description;
     thumbnailImg.classList.toggle("thumbnailImg");
     g_thumbnails.children[i].appendChild(thumbnailImg);
 
     let mainImg = document.createElement("img");
-    mainImg.src=g_images[i].urls.regular;
-    mainImg.alt=g_images[i].alt_description;
+    mainImg.src = g_images[i].urls.regular;
+    mainImg.alt = g_images[i].alt_description;
     mainImg.classList.toggle("mainImg");
     g_imagelist.children[i].appendChild(mainImg);
-}
+  }
 }

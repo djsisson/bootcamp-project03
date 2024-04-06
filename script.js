@@ -39,12 +39,13 @@ function eventHandlers() {
   });
   Array.from(g_indicators.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
+      document.querySelector(".search-input").placeholder =`${i} ${x.className}`
       g_imagelist.children[i].scrollIntoView({
         inline: "start",
         behavior: "smooth",
       });
-      activateIndicator(i);
       e.target.classList.toggle("active",true);
+      activateIndicator(i);
       e.stopPropagation();
     })
   );
@@ -104,7 +105,16 @@ function myscroll() {
 
 eventHandlers();
 activateIndicator(0);
-getImages(`count=10`, true);
+loadFromSave();
+
+function loadFromSave(){
+  g_images= JSON.parse(localStorage.getItem("localimages")) || [];
+  if (g_images.length == 0){
+    getImages(`count=10`, true);
+  } else {
+    loadImages();
+  }
+}
 
 async function getImages(query, random = false) {
   let urlToSend = "";
@@ -120,7 +130,7 @@ async function getImages(query, random = false) {
   } else {
     g_images = data.results;
   }
-
+  saveImages();
   loadImages();
 }
 
@@ -139,4 +149,8 @@ function loadImages() {
     mainImg.classList.toggle("mainImg");
     g_imagelist.children[i].appendChild(mainImg);
   }
+}
+
+function saveImages(){
+  localStorage.setItem("localimages", JSON.stringify(g_images));
 }

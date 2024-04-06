@@ -79,7 +79,7 @@ function eventHandlers() {
 }
 
 function activateIndicator(index) {
-  index = ((index % 10) + 10) % 10;
+  index = (Math.round(index) + 10) % 10;
   g_currentlyActive = index;
   Array.from(g_indicators.children).forEach((indicator, i) => {
     indicator.classList.toggle("active", i === g_currentlyActive);
@@ -89,7 +89,7 @@ function activateIndicator(index) {
   });
 
   g_imagelist.children[g_currentlyActive].scrollIntoView({
-    inline: "start",
+    inline: "center",
     behavior: "smooth",
   });
   if (scrollTimeout != 0) clearTimeout(scrollTimeout);

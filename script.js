@@ -7,6 +7,7 @@ const API_KEY = "krWf6L0GeP3XVFBXdpW9OqanZkGftF2wOK_gB5sbuxQ";
 const g_Url = "https://api.unsplash.com/search/photos?page=1&";
 const g_RandUrl = "https://api.unsplash.com/photos/random?";
 let scrollTimeout = 0;
+let scrollendTimeout = 0;
 let g_currentlyActive = 0;
 
 function eventHandlers() {
@@ -18,7 +19,14 @@ function eventHandlers() {
     }
   });
   g_imagelist.addEventListener("scrollend", (e) => {
-    activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth)*10);
+    if (scrollendTimeout != 0){
+      clearTimeout(scrollendTimeout);
+    }
+    scrollendTimeout=setTimeout(()=>{
+      thumbnailScroll();
+      activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth)*10);
+    }, 500)
+    
   });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
@@ -31,20 +39,20 @@ function eventHandlers() {
   });
   document.querySelector(".prev").addEventListener("click", (e) => {
     e.stopPropagation();
+    
     activateIndicator((g_currentlyActive -= 1));
+    scrollImgIntoView(g_currentlyActive);
   });
   document.querySelector(".next").addEventListener("click", (e) => {
+    
     e.stopPropagation();
     activateIndicator((g_currentlyActive += 1));
+    scrollImgIntoView(g_currentlyActive);
   });
   Array.from(g_indicators.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
-      // document.querySelector(".search-input").placeholder =`${i} ${x.className}`
-      // e.target.classList.toggle("active",true);
-      // g_imagelist.children[i].scrollIntoView({
-      //   inline: "start",
-      //   behavior: "smooth",
-      // });
+      e.target.classList.toggle("active",true);
+      scrollImgIntoView(i);
       
       activateIndicator(i);
       e.stopPropagation();
@@ -52,10 +60,7 @@ function eventHandlers() {
   );
   Array.from(g_thumbnails.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
-      g_imagelist.children[i].scrollIntoView({
-        inline: "start",
-        behavior: "smooth",
-      });
+      scrollImgIntoView(i);
       activateIndicator(i);
       e.stopPropagation();
     })
@@ -79,6 +84,15 @@ function eventHandlers() {
   });
 }
 
+function scrollImgIntoView(i){
+
+  g_imagelist.children[i].scrollIntoView({
+    inline: "start",
+    behavior: "smooth",
+  });
+
+}
+
 function activateIndicator(index) {
   index = (Math.round(index) + 10) % 10;
   g_currentlyActive = parseInt(index);
@@ -89,15 +103,9 @@ function activateIndicator(index) {
     thumbnail.classList.toggle("active", i == g_currentlyActive);
   });
 
-  g_imagelist.children[g_currentlyActive].scrollIntoView({
-    inline: "center",
-    behavior: "smooth",
-  });
-  if (scrollTimeout != 0) clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(myscroll, 500);
 }
 
-function myscroll() {
+function thumbnailScroll() {
   g_thumbnails.children[g_currentlyActive].scrollIntoView({
     inline: "center",
     behavior: "smooth",

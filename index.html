@@ -3,74 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Searchable and Random Image Viewer" />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./global.js" defer></script>
+    <script src="./eventHandlers.js" defer></script>
     <script src="./script.js" defer></script>
-    <title>Document</title>
+    <title>Image Viewer</title>
   </head>
   <body>
     <header></header>
     <main>
-      <div class="sidebar"><button class="close-sidebar"> x </button>
-      <div class="description">Description</div><div class="link-to-img">ggg</div></div>
-      
+      <div class="sidebar">
+        <button  title="close sidebar" class="close-sidebar"> x </button>
+        <div title="Image Link" class="link-to-img">Image Link</div>
+        <div  role="status" aria-live="assertive" class="description" title="Image Description">Image Description</div>
+      </div>
       <div class="search-form">
-        <button class="open-sidebar">☰</button>
+        <button title="open-sidebar" class="open-sidebar">☰</button>
+        <button class="random" title="Generate 10 Random Images">?</button>
         <form action="" class="search">
-          <label for="search"> </label
-          ><input id="search" type="search" class="search-input" title="Please enter a valid search term." pattern="^[A-z0-9À-ž][A-z0-9À-ž\s]+" placeholder="Search Term" name="input" maxlength="20" required/><button
-            type="submit"
-            class="submit"
-          >
-            Search
-          </button>
+          <label for="search"> </label>
+          <input id="search" type="search" class="search-input" title="Please enter a valid search term." pattern="^[A-z0-9À-ž][A-z0-9À-ž\s]+" placeholder="Search Term" name="input" maxlength="20" required/>
+          <button type="submit" class="submit">Search</button>
         </form>
-        <button class="random">?</button><button class="info">&#9660</button>
+        <button class="info-down" title="Image Information">&#9660</button>
       </div>
       <div class="image-viewer">
-        <div class="buttonGroup">
-          <button class="prev" title="Previous Image">&#9664</button>
-          <button class="next" title="Next Image">&#9654</button>
+        <div tabindex ="-1" class="buttonGroup">
+          <button class="prev" tabindex="-1" title="Previous Image">&#9664</button>
+          <button class="next" tabindex="-1" title="Next Image">&#9654</button>
         </div>
         <ul class="image-list">
-          <li class="image-item">1</li>
-          <li class="image-item">2</li>
-          <li class="image-item">3</li>
-          <li class="image-item">4</li>
-          <li class="image-item">5</li>
-          <li class="image-item">6</li>
-          <li class="image-item">7</li>
-          <li class="image-item">8</li>
-          <li class="image-item">9</li>
-          <li class="image-item">10</li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
+          <li class="image-item"></li>
         </ul>
-        <div class="indicatorsList">
+        <div tabindex ="-1" class="indicatorsList">
           <button class="indicator" aria-label="First Image"></button>
-          <button class="indicator" aria-label="Second Image"></button>
-          <button class="indicator" aria-label="Third Image"></button>
-          <button class="indicator" aria-label="Fourth Image"></button>
+          <button class="indicator"  aria-label="Second Image"></button>
+          <button class="indicator"  aria-label="Third Image"></button>
+          <button class="indicator"  aria-label="Fourth Image"></button>
           <button class="indicator" aria-label="Fifth Image"></button>
           <button class="indicator" aria-label="Sixth Image"></button>
           <button class="indicator" aria-label="Seventh Image"></button>
-          <button class="indicator" aria-label="Eigth Image"></button>
-          <button class="indicator" aria-label="Ninth Image"></button>
-          <button class="indicator" aria-label="Tenth Image"></button>
+          <button class="indicator"  aria-label="Eigth Image"></button>
+          <button class="indicator"  aria-label="Ninth Image"></button>
+          <button class="indicator"  aria-label="Tenth Image"></button>
         </div>
-        
-
       </div>
-      <div class="thumbnail-viewer">
+      <div  class="thumbnail-viewer">
         <button class="prev-thumbnail" title="Previous Thumbnails">&#9664</button>
           <ul class="thumbnail-list">
-            <li class="thumbnail-item">1</li>
-            <li class="thumbnail-item">2</li>
-            <li class="thumbnail-item">3</li>
-            <li class="thumbnail-item">4</li>
-            <li class="thumbnail-item">5</li>
-            <li class="thumbnail-item">6</li>
-            <li class="thumbnail-item">7</li>
-            <li class="thumbnail-item">8</li>
-            <li class="thumbnail-item">9</li>
-            <li class="thumbnail-item">10</li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
+            <li class="thumbnail-item"></li>
           </ul>
           <button class="next-thumbnail" title="Next Thumbnails">&#9654</button>
         </div>

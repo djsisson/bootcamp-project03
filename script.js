@@ -2,12 +2,15 @@ const g_sidebar = document.querySelector(".sidebar");
 const g_imagelist = document.querySelector(".image-list");
 const g_indicators = document.querySelector(".indicatorsList");
 const g_thumbnails = document.querySelector(".thumbnail-list");
+const g_sidebarDescription = document.querySelector(".description");
+const g_sidebarLink = document.querySelector(".link-to-img");
 const scrollType = { inline: "start", behavior: "smooth" };
 const API_KEY = "krWf6L0GeP3XVFBXdpW9OqanZkGftF2wOK_gB5sbuxQ";
 const g_Url = "https://api.unsplash.com/search/photos?page=1&";
 const g_RandUrl = "https://api.unsplash.com/photos/random?";
 let scrollThumbTimeout = 0;
 let scrollendTimeout = 0;
+let scrollTouchTimeout = 0;
 let g_currentlyActive = 0;
 
 function eventHandlers() {
@@ -24,8 +27,8 @@ function eventHandlers() {
     if (scrollendTimeout != 0) {
       clearTimeout(scrollendTimeout);
     }
-
     scrollendTimeout = setTimeout(() => {
+      activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10);
       thumbnailScroll();
     }, 500);
   });
@@ -39,8 +42,12 @@ function eventHandlers() {
       scrollImgIntoView(g_currentlyActive);
     }, 500);
   });
-  g_imagelist.addEventListener("touchend", () => {
-    activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10);
+  document.querySelector(".random").addEventListener("click", (e) => {
+    getImages(`count=10`, true);
+  });
+  document.querySelector(".search-form").addEventListener("click", (e) => {
+    e.stopPropagation();
+    g_sidebar.classList.toggle("active", false);
   });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
@@ -49,6 +56,11 @@ function eventHandlers() {
     g_sidebar.classList.toggle("active");
   });
   document.querySelector(".open-sidebar").addEventListener("click", (e) => {
+    e.stopPropagation();
+    g_sidebarDescription.textContent =
+      g_images[g_currentlyActive].description ||
+      g_images[g_currentlyActive].alt_description;
+    g_sidebarLink.innerHTML = `<a href="${g_images[g_currentlyActive].links.html}">Link To Image</a>`;
     g_sidebar.classList.toggle("active");
   });
   document.querySelector(".prev").addEventListener("click", (e) => {
@@ -68,7 +80,6 @@ function eventHandlers() {
       scrollImgIntoView(i);
 
       activateIndicator(i);
-      e.stopPropagation();
     })
   );
 
@@ -97,6 +108,14 @@ function eventHandlers() {
   });
   document.querySelector(".image-viewer").addEventListener("click", (e) => {
     g_sidebar.classList.toggle("active", false);
+    let relpos = e.x / e.target.getBoundingClientRect().width;
+    if (relpos < 0.33) {
+      activateIndicator((g_currentlyActive -= 1));
+      scrollImgIntoView(g_currentlyActive);
+    } else if (relpos > 0.66) {
+      activateIndicator((g_currentlyActive += 1));
+      scrollImgIntoView(g_currentlyActive);
+    }
   });
 }
 
@@ -160,14 +179,22 @@ function loadImages() {
   for (let i = 0; i < g_images.length; i++) {
     g_thumbnails.children[i].innerHTML = "";
     let thumbnailImg = document.createElement("img");
-    thumbnailImg.src = g_images[i].urls.thumb;
+    thumbnailImg.src = `${g_images[i].urls.raw}&fm=webp&w=200&fit=max`;
     thumbnailImg.alt = g_images[i].alt_description;
+    thumbnailImg.title = g_images[i].alt_description;
     thumbnailImg.classList.toggle("thumbnailImg");
     g_thumbnails.children[i].appendChild(thumbnailImg);
 
     let mainImg = document.createElement("img");
-    mainImg.src = g_images[i].urls.regular;
+    mainImg.src = `${g_images[i].urls.raw}&auto=format&fit=crop&w=1080&q=80&fit=max`;
     mainImg.alt = g_images[i].alt_description;
+    mainImg.srcset = `
+${g_images[i].urls.raw}?w=400&h=400&fit=crop&fm=webp 400w,
+${g_images[i].urls.raw}?w=600&h=600&fit=crop&fm=webp 600w,
+${g_images[i].urls.raw}?w=800&h=800&fit=crop&fm=webp 800w,
+${g_images[i].urls.raw}?w=1000&h=1000&fit=crop&fm=webp 1000w,
+${g_images[i].urls.raw}?w=1200&h=1200&fit=crop&fm=webp 1200w,
+`;
     mainImg.classList.toggle("mainImg");
     g_imagelist.children[i].appendChild(mainImg);
   }

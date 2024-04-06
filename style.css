@@ -23,7 +23,6 @@ main {
 }
 
 
-
 .open-sidebar{
     z-index: 1;
 }
@@ -52,26 +51,32 @@ main {
 
 .sidebar {
   height: 100%;
-  width: 0;
   position: fixed;
   z-index: 2;
   top: 0;
-  left: 0;
+  left: -250px;
+  width: 250px;
   overflow-x: hidden;
   transition: all 0.5s;
   background-color: black;
+  opacity: 0.7;
 }
 
 .sidebar.active {
   transition: all 0.5s;
-  width: 250px;
+  left: 0px;
 }
 
 .close-sidebar {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 60px;
+  left: 10px;
   display: block;
+  padding: 0 5px;
+  font-size: 2rem;
+  background-color: black;
+  color: red;
+  border: 1px white solid;
 }
 
 .image-list {
@@ -156,7 +161,33 @@ main {
     border: solid red 5px;
   }
   
+  .thumbnail-item:not(.active):hover{
+    border: solid orange 5px;
+  }
+.description{
+  color: white;
+  padding: 120px 20px;
 
+  width: 80%
+}
+
+.link-to-img{
+  color: white;
+  padding: 0 20px;
+}
+a{
+  width: 80%;
+  color: red;
+  text-decoration: none;
+  font-style: italic;
+}
+a:hover{
+  text-decoration: underline;
+}
+
+.submit{
+  cursor: pointer;
+}
   
   .indicatorsList {
     padding: 20px;
@@ -204,8 +235,14 @@ main {
  .thumbnail-viewer{
     display: none;
  }
+ .info{
+  display: none;
+ }
 
  @media screen and (min-width: 600px) and (min-height: 600px) {
+  .info{
+    display: unset;
+  }
     .sidebar {
       display: none;
     }
@@ -216,7 +253,7 @@ main {
       width: unset;
     }
     .buttonGroup{
-        top: 50svh;
+        top: 40svh;
         position: relative;
         z-index: 2;
     }
@@ -224,11 +261,18 @@ main {
     .next {
       position: absolute;
       cursor: pointer;
-      font-size: 20px;
-      border-radius: 4px;
-      color: #181818;
-      border: 2px solid #181818;
+      font-size: 40px;
+      border: none;
+      color: black;
+      background-color: transparent;
       display: unset;
+      opacity: 0;
+    }
+    .prev:hover , .next:hover {
+      border: 3px solid grey;
+      border-style: outset;
+      border-radius: 20%;
+      opacity: 1;
     }
     
     .prev {

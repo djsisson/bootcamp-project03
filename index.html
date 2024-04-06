@@ -10,7 +10,8 @@
   <body>
     <header></header>
     <main>
-      <div class="sidebar"><button class="close-sidebar">x</button></div>
+      <div class="sidebar"><button class="close-sidebar"> x </button>
+      <div class="description">Description</div><div class="link-to-img">ggg</div></div>
       
       <div class="search-form">
         <button class="open-sidebar">☰</button>
@@ -23,11 +24,12 @@
             Search
           </button>
         </form>
+        <button class="random">?</button><button class="info">&#9660</button>
       </div>
       <div class="image-viewer">
         <div class="buttonGroup">
-          <button class="prev">←</button>
-          <button class="next">→</button>
+          <button class="prev" title="Previous Image">&#9664</button>
+          <button class="next" title="Next Image">&#9654</button>
         </div>
         <ul class="image-list">
           <li class="image-item">1</li>
@@ -42,22 +44,22 @@
           <li class="image-item">10</li>
         </ul>
         <div class="indicatorsList">
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
-          <button class="indicator"></button>
+          <button class="indicator" aria-label="First Image"></button>
+          <button class="indicator" aria-label="Second Image"></button>
+          <button class="indicator" aria-label="Third Image"></button>
+          <button class="indicator" aria-label="Fourth Image"></button>
+          <button class="indicator" aria-label="Fifth Image"></button>
+          <button class="indicator" aria-label="Sixth Image"></button>
+          <button class="indicator" aria-label="Seventh Image"></button>
+          <button class="indicator" aria-label="Eigth Image"></button>
+          <button class="indicator" aria-label="Ninth Image"></button>
+          <button class="indicator" aria-label="Tenth Image"></button>
         </div>
         
 
       </div>
       <div class="thumbnail-viewer">
-        <button class="prev-thumbnail">←</button>
+        <button class="prev-thumbnail" title="Previous Thumbnails">&#9664</button>
           <ul class="thumbnail-list">
             <li class="thumbnail-item">1</li>
             <li class="thumbnail-item">2</li>
@@ -70,7 +72,7 @@
             <li class="thumbnail-item">9</li>
             <li class="thumbnail-item">10</li>
           </ul>
-          <button class="next-thumbnail">→</button>
+          <button class="next-thumbnail" title="Next Thumbnails">&#9654</button>
         </div>
     </main>
     <footer></footer>

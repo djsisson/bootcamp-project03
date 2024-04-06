@@ -6,7 +6,7 @@ const scrollType = { inline: "start", behavior: "smooth" };
 const API_KEY = "krWf6L0GeP3XVFBXdpW9OqanZkGftF2wOK_gB5sbuxQ";
 const g_Url = "https://api.unsplash.com/search/photos?page=1&";
 const g_RandUrl = "https://api.unsplash.com/photos/random?";
-let scrollTimeout = 0;
+let scrollThumbTimeout = 0;
 let scrollendTimeout = 0;
 let g_currentlyActive = 0;
 
@@ -21,20 +21,26 @@ function eventHandlers() {
     }
   });
   g_imagelist.addEventListener("scrollend", (e) => {
-    thumbnailScroll();
     if (scrollendTimeout != 0) {
       clearTimeout(scrollendTimeout);
     }
 
     scrollendTimeout = setTimeout(() => {
-      // 
+      thumbnailScroll();
     }, 500);
+  });
 
-    g_imagelist.addEventListener("touchend", () => {
-      activateIndicator(
-        (g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10
-      );
-    });
+  g_thumbnails.addEventListener("scrollend", (e) => {
+    if (scrollThumbTimeout != 0) {
+      clearTimeout(scrollThumbTimeout);
+    }
+
+    scrollThumbTimeout = setTimeout(() => {
+      scrollImgIntoView(g_currentlyActive);
+    }, 500);
+  });
+  g_imagelist.addEventListener("touchend", () => {
+    activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10);
   });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
@@ -65,7 +71,7 @@ function eventHandlers() {
       e.stopPropagation();
     })
   );
-  
+
   Array.from(g_thumbnails.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
       scrollImgIntoView(i);
@@ -84,10 +90,10 @@ function eventHandlers() {
   });
   const scrollAmount = g_thumbnails.children[0].getBoundingClientRect().width;
   document.querySelector(".prev-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: 0, behavior: "auto" });
+    g_thumbnails.scrollTo({ left: 0, behavior: "smooth" });
   });
   document.querySelector(".next-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: scrollAmount * 10, behavior: "auto" });
+    g_thumbnails.scrollTo({ left: scrollAmount * 10, behavior: "smooth" });
   });
   document.querySelector(".image-viewer").addEventListener("click", (e) => {
     g_sidebar.classList.toggle("active", false);
@@ -97,12 +103,11 @@ function eventHandlers() {
 function scrollImgIntoView(i) {
   g_imagelist.children[i].scrollIntoView({
     inline: "start",
-    behavior: "auto",
+    behavior: "smooth",
   });
 }
 
 function activateIndicator(index) {
-  console.log("rrrr")
   index = (Math.round(index) + 10) % 10;
   g_currentlyActive = parseInt(index);
   Array.from(g_indicators.children).forEach((indicator, i) => {
@@ -116,7 +121,7 @@ function activateIndicator(index) {
 function thumbnailScroll() {
   g_thumbnails.children[g_currentlyActive].scrollIntoView({
     inline: "center",
-    behavior: "auto",
+    behavior: "smooth",
   });
 }
 

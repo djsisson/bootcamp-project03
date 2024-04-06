@@ -11,16 +11,14 @@ let g_currentlyActive = 0;
 
 function eventHandlers() {
   document.addEventListener("keydown", (e) => {
-    if (e.code=="ArrowLeft"){
-      activateIndicator(g_currentlyActive-=1);
-    }else if (e.code=="ArrowRight") {
-      activateIndicator(g_currentlyActive+=1);
+    if (e.code == "ArrowLeft") {
+      activateIndicator((g_currentlyActive -= 1));
+    } else if (e.code == "ArrowRight") {
+      activateIndicator((g_currentlyActive += 1));
     }
-  })
+  });
   g_imagelist.addEventListener("scrollend", (e) => {
-    activateIndicator(
-      g_imagelist.scrollLeft / g_imagelist.getBoundingClientRect().width
-    );
+    activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth)*10);
   });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
@@ -61,7 +59,7 @@ function eventHandlers() {
   );
   document.querySelector(".search").addEventListener("keydown", (e) => {
     e.stopPropagation();
-  })
+  });
   document.querySelector(".search").addEventListener("submit", (e) => {
     e.preventDefault();
     getImages(e.target.input.value);
@@ -80,12 +78,12 @@ function eventHandlers() {
 
 function activateIndicator(index) {
   index = (Math.round(index) + 10) % 10;
-  g_currentlyActive = index;
+  g_currentlyActive = parseInt(index);
   Array.from(g_indicators.children).forEach((indicator, i) => {
-    indicator.classList.toggle("active", i === g_currentlyActive);
+    indicator.classList.toggle("active", i == g_currentlyActive);
   });
   Array.from(g_thumbnails.children).forEach((thumbnail, i) => {
-    thumbnail.classList.toggle("active", i === g_currentlyActive);
+    thumbnail.classList.toggle("active", i == g_currentlyActive);
   });
 
   g_imagelist.children[g_currentlyActive].scrollIntoView({

@@ -14,19 +14,27 @@ function eventHandlers() {
   document.addEventListener("keydown", (e) => {
     if (e.code == "ArrowLeft") {
       activateIndicator((g_currentlyActive -= 1));
+      scrollImgIntoView(g_currentlyActive);
     } else if (e.code == "ArrowRight") {
       activateIndicator((g_currentlyActive += 1));
+      scrollImgIntoView(g_currentlyActive);
     }
   });
   g_imagelist.addEventListener("scrollend", (e) => {
-    if (scrollendTimeout != 0){
+    thumbnailScroll();
+    if (scrollendTimeout != 0) {
       clearTimeout(scrollendTimeout);
     }
-    scrollendTimeout=setTimeout(()=>{
-      thumbnailScroll();
-      activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth)*10);
-    }, 500)
-    
+
+    scrollendTimeout = setTimeout(() => {
+      // 
+    }, 500);
+
+    g_imagelist.addEventListener("touchend", () => {
+      activateIndicator(
+        (g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10
+      );
+    });
   });
   document.querySelector(".search-input").addEventListener("focus", (e) => {
     e.currentTarget.select();
@@ -39,25 +47,25 @@ function eventHandlers() {
   });
   document.querySelector(".prev").addEventListener("click", (e) => {
     e.stopPropagation();
-    
+
     activateIndicator((g_currentlyActive -= 1));
     scrollImgIntoView(g_currentlyActive);
   });
   document.querySelector(".next").addEventListener("click", (e) => {
-    
     e.stopPropagation();
     activateIndicator((g_currentlyActive += 1));
     scrollImgIntoView(g_currentlyActive);
   });
   Array.from(g_indicators.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
-      e.target.classList.toggle("active",true);
+      e.target.classList.toggle("active", true);
       scrollImgIntoView(i);
-      
+
       activateIndicator(i);
       e.stopPropagation();
     })
   );
+  
   Array.from(g_thumbnails.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
       scrollImgIntoView(i);
@@ -65,35 +73,36 @@ function eventHandlers() {
       e.stopPropagation();
     })
   );
+
   document.querySelector(".search").addEventListener("keydown", (e) => {
     e.stopPropagation();
   });
   document.querySelector(".search").addEventListener("submit", (e) => {
     e.preventDefault();
+    g_imagelist.focus();
     getImages(e.target.input.value);
   });
   const scrollAmount = g_thumbnails.children[0].getBoundingClientRect().width;
   document.querySelector(".prev-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: 0, behavior: "smooth" });
+    g_thumbnails.scrollTo({ left: 0, behavior: "auto" });
   });
   document.querySelector(".next-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: scrollAmount * 10, behavior: "smooth" });
+    g_thumbnails.scrollTo({ left: scrollAmount * 10, behavior: "auto" });
   });
   document.querySelector(".image-viewer").addEventListener("click", (e) => {
     g_sidebar.classList.toggle("active", false);
   });
 }
 
-function scrollImgIntoView(i){
-
+function scrollImgIntoView(i) {
   g_imagelist.children[i].scrollIntoView({
     inline: "start",
-    behavior: "smooth",
+    behavior: "auto",
   });
-
 }
 
 function activateIndicator(index) {
+  console.log("rrrr")
   index = (Math.round(index) + 10) % 10;
   g_currentlyActive = parseInt(index);
   Array.from(g_indicators.children).forEach((indicator, i) => {
@@ -102,13 +111,12 @@ function activateIndicator(index) {
   Array.from(g_thumbnails.children).forEach((thumbnail, i) => {
     thumbnail.classList.toggle("active", i == g_currentlyActive);
   });
-
 }
 
 function thumbnailScroll() {
   g_thumbnails.children[g_currentlyActive].scrollIntoView({
     inline: "center",
-    behavior: "smooth",
+    behavior: "auto",
   });
 }
 
@@ -116,9 +124,9 @@ eventHandlers();
 activateIndicator(0);
 loadFromSave();
 
-function loadFromSave(){
-  g_images= JSON.parse(localStorage.getItem("localimages")) || [];
-  if (g_images.length == 0){
+function loadFromSave() {
+  g_images = JSON.parse(localStorage.getItem("localimages")) || [];
+  if (g_images.length == 0) {
     getImages(`count=10`, true);
   } else {
     loadImages();
@@ -160,6 +168,6 @@ function loadImages() {
   }
 }
 
-function saveImages(){
+function saveImages() {
   localStorage.setItem("localimages", JSON.stringify(g_images));
 }

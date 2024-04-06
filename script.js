@@ -39,14 +39,14 @@ function eventHandlers() {
   });
   Array.from(g_indicators.children).forEach((x, i) =>
     x.addEventListener("click", (e) => {
-      document.querySelector(".search-input").placeholder =`${i} ${x.className}`
-      e.target.classList.toggle("active",true);
+      // document.querySelector(".search-input").placeholder =`${i} ${x.className}`
+      // e.target.classList.toggle("active",true);
       // g_imagelist.children[i].scrollIntoView({
       //   inline: "start",
       //   behavior: "smooth",
       // });
       
-      // activateIndicator(i);
+      activateIndicator(i);
       e.stopPropagation();
     })
   );

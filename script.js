@@ -41,12 +41,12 @@ function eventHandlers() {
     x.addEventListener("click", (e) => {
       document.querySelector(".search-input").placeholder =`${i} ${x.className}`
       e.target.classList.toggle("active",true);
-      g_imagelist.children[i].scrollIntoView({
-        inline: "start",
-        behavior: "smooth",
-      });
+      // g_imagelist.children[i].scrollIntoView({
+      //   inline: "start",
+      //   behavior: "smooth",
+      // });
       
-      activateIndicator(i);
+      // activateIndicator(i);
       e.stopPropagation();
     })
   );

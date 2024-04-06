@@ -44,6 +44,7 @@ function eventHandlers() {
         behavior: "smooth",
       });
       activateIndicator(i);
+      e.target.classList.toggle("active",true);
       e.stopPropagation();
     })
   );

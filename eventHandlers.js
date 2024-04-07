@@ -12,11 +12,13 @@ function eventHandlers() {
   document.addEventListener("keydown", (e) => {
     if (e.code == "ArrowLeft") {
       activateIndicator((g_currentlyActive -= 1));
-      scrollImgIntoView();
     } else if (e.code == "ArrowRight") {
       activateIndicator((g_currentlyActive += 1));
-      scrollImgIntoView();
     }
+  });
+
+  document.addEventListener("keyup", (e) => {
+      scrollImgIntoView();
   });
 
   g_imagelist.addEventListener("scrollend", (e) => {

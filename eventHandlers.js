@@ -109,11 +109,11 @@ function eventHandlers() {
   });
 
   document.querySelector(".prev-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: 0, behavior: "auto" });
+    g_thumbnails.scrollTo({ left: 0, behavior: "smooth" });
   });
 
   document.querySelector(".next-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: g_imagelist.scrollWidth, behavior: "auto" });
+    g_thumbnails.scrollTo({ left: g_imagelist.scrollWidth, behavior: "smooth" });
   });
 
   document.querySelector(".image-viewer").addEventListener("click", (e) => {

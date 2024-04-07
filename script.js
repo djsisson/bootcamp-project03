@@ -1,16 +1,16 @@
 function scrollImgIntoView() {
-  g_imagelist.scrollTo({left: g_imagelist.getBoundingClientRect().width*g_currentlyActive, behavior: "auto", })
-  // g_imagelist.children[g_currentlyActive].scrollIntoView({
-  //   inline: "center",
-  //   behavior: "auto",
-  // });
+  g_imagelist.scrollTo({
+    left: g_imagelist.getBoundingClientRect().width * g_currentlyActive,
+    behavior: "smooth",
+  });
 }
 
 function thumbnailScroll() {
-  g_thumbnails.children[g_currentlyActive].scrollIntoView({
-    inline: "center",
-    behavior: "auto",
-  });
+  let scrollpos =
+    g_thumbnails.children[0].getBoundingClientRect().width *
+    (g_currentlyActive + 0.5);
+  scrollpos -= g_thumbnails.getBoundingClientRect().width / 2;
+  g_thumbnails.scrollTo({ left: scrollpos, behavior: "smooth" });
 }
 
 function activateIndicator(index) {
@@ -58,7 +58,7 @@ function loadImages() {
     thumbnailImg.src = `${g_images[i].urls.raw}&auto=compress, format&w=200&fit=max`;
     thumbnailImg.alt = g_images[i].alt_description;
     thumbnailImg.title = g_images[i].alt_description;
-    thumbnailImg.tabIndex="0"
+    thumbnailImg.tabIndex = "0";
     thumbnailImg.classList.toggle("thumbnailImg");
     g_thumbnails.children[i].appendChild(thumbnailImg);
     let mainImg = document.createElement("img");

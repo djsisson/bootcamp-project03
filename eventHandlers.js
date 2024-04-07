@@ -26,10 +26,9 @@ function eventHandlers() {
       activateIndicator(
         (g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10
       );
+    } else {
+      thumbnailScroll();
     }
-
-    scrollImgIntoView();
-    thumbnailScroll();
     updateDescription();
   });
 
@@ -113,7 +112,10 @@ function eventHandlers() {
   });
 
   document.querySelector(".next-thumbnail").addEventListener("click", (e) => {
-    g_thumbnails.scrollTo({ left: g_imagelist.scrollWidth, behavior: "smooth" });
+    g_thumbnails.scrollTo({
+      left: g_imagelist.scrollWidth,
+      behavior: "smooth",
+    });
   });
 
   document.querySelector(".image-viewer").addEventListener("click", (e) => {

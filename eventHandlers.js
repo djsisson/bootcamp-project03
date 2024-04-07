@@ -3,8 +3,10 @@ function eventHandlers() {
     e.stopPropagation();
     updateDescription();
     g_sidebar.classList.toggle("active");
-    document.querySelector(".close-sidebar").tabIndex = g_sidebar.classList.contains("active")-1;
-    document.querySelector(".link-to-img > a").tabIndex = g_sidebar.classList.contains("active")-1;
+    document.querySelector(".close-sidebar").tabIndex =
+      g_sidebar.classList.contains("active") - 1;
+    document.querySelector(".link-to-img > a").tabIndex =
+      g_sidebar.classList.contains("active") - 1;
   });
 
   document.addEventListener("keydown", (e) => {
@@ -47,7 +49,7 @@ function eventHandlers() {
   document.querySelector(".close-sidebar").addEventListener("click", (e) => {
     g_sidebarLink.tabindex = -1;
     document.querySelector(".close-sidebar").tabIndex = -1;
-    document.querySelector(".link-to-img > a").tabIndex =-1;
+    document.querySelector(".link-to-img > a").tabIndex = -1;
     g_sidebar.classList.toggle("active");
   });
 
@@ -96,8 +98,14 @@ function eventHandlers() {
 
   document.querySelector(".search").addEventListener("submit", (e) => {
     e.preventDefault();
-    g_imagelist.focus();
     getImages(e.target.input.value);
+    if (
+      window.matchMedia("(min-width: 600px) and (min-height: 600px)").matches
+    ) {
+      document.querySelector(".info-down").focus();
+    } else {
+      document.querySelector(".open-sidebar").focus();
+    }
   });
 
   document.querySelector(".prev-thumbnail").addEventListener("click", (e) => {
@@ -110,8 +118,10 @@ function eventHandlers() {
 
   document.querySelector(".image-viewer").addEventListener("click", (e) => {
     g_sidebar.classList.toggle("active", false);
-    document.querySelector(".close-sidebar").tabIndex = g_sidebar.classList.contains("active")-1;
-    document.querySelector(".link-to-img > a").tabIndex = g_sidebar.classList.contains("active")-1;
+    document.querySelector(".close-sidebar").tabIndex =
+      g_sidebar.classList.contains("active") - 1;
+    document.querySelector(".link-to-img > a").tabIndex =
+      g_sidebar.classList.contains("active") - 1;
     if (
       window.matchMedia("(min-width: 600px) and (min-height: 600px)").matches
     ) {

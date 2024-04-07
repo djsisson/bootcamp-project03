@@ -74,7 +74,8 @@ ${g_images[i].urls.raw}?w=1200&h=1200&fit=crop&auto=format 1200w,
     mainImg.classList.toggle("mainImg");
     g_imagelist.children[i].appendChild(mainImg);
   }
-  g_currentlyActive = 0;
+  activateIndicator(0);
+  scrollImgIntoView();
   updateDescription();
 }
 

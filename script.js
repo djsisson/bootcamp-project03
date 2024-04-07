@@ -86,7 +86,7 @@ function updateDescription() {
   g_sidebarDescription.textContent =
     g_images[g_currentlyActive].description ||
     g_images[g_currentlyActive].alt_description;
-  g_sidebarLink.innerHTML = `<a href="${g_images[g_currentlyActive].links.html}">Link To Image</a>`;
+  g_sidebarLink.innerHTML = `<a tabindex="-1" href="${g_images[g_currentlyActive].links.html}">Link To Image</a>`;
 }
 
 eventHandlers();

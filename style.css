@@ -7,7 +7,7 @@
 }
 
 body {
-  width: 100svw;
+  width: 100dvw;
   height: 100dvh;
   padding: 5px;
   overflow: hidden;
@@ -123,9 +123,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  color: #fff;
-  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.4);
   position: relative;
 }
 
@@ -147,9 +144,6 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 32px;
-  color: #fff;
-  text-shadow: 0 2px 1px rgba(0, 0, 0, 0.4);
   border: solid 5px transparent;
   border-bottom: none;
 }
@@ -289,12 +283,20 @@ a:hover {
     color: black;
     background-color: transparent;
     display: unset;
-    opacity: 0;
+    opacity: 0.7;
+    border: 3px solid transparent;
   }
+
+  .prev:focus, .next:focus{
+    border: 5px solid grey;
+    border-style: outset;
+    border-radius: 20%;
+    opacity: 1;
+  }
+
   .prev:hover,
   .next:hover {
-    border: 3px solid grey;
-    border-style: outset;
+    border: 3px solid black;
     border-radius: 20%;
     opacity: 1;
   }

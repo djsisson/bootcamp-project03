@@ -1,8 +1,10 @@
 function eventHandlers() {
   document.querySelector(".info-down").addEventListener("click", (e) => {
     e.stopPropagation();
-
+    updateDescription();
     g_sidebar.classList.toggle("active");
+    document.querySelector(".close-sidebar").tabIndex = g_sidebar.classList.contains("active")-1;
+    document.querySelector(".link-to-img > a").tabIndex = g_sidebar.classList.contains("active")-1;
   });
 
   document.addEventListener("keydown", (e) => {
@@ -15,17 +17,16 @@ function eventHandlers() {
     }
   });
 
-
   g_imagelist.addEventListener("scrollend", (e) => {
-
     if (
-        !(window.matchMedia("(min-width: 600px) and (min-height: 600px)").matches)
-      ){
-        activateIndicator((g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10);
-      }
+      !window.matchMedia("(min-width: 600px) and (min-height: 600px)").matches
+    ) {
+      activateIndicator(
+        (g_imagelist.scrollLeft / g_imagelist.scrollWidth) * 10
+      );
+    }
 
-    
-    scrollImgIntoView()
+    scrollImgIntoView();
     thumbnailScroll();
     updateDescription();
   });
@@ -44,15 +45,15 @@ function eventHandlers() {
   });
 
   document.querySelector(".close-sidebar").addEventListener("click", (e) => {
+    g_sidebarLink.tabindex = -1;
+    document.querySelector(".close-sidebar").tabIndex = -1;
+    document.querySelector(".link-to-img > a").tabIndex =-1;
     g_sidebar.classList.toggle("active");
   });
 
   document.querySelector(".open-sidebar").addEventListener("click", (e) => {
     e.stopPropagation();
-    g_sidebarDescription.textContent =
-      g_images[g_currentlyActive].description ||
-      g_images[g_currentlyActive].alt_description;
-    g_sidebarLink.innerHTML = `<a href="${g_images[g_currentlyActive].links.html}">Link To Image</a>`;
+    updateDescription();
     g_sidebar.classList.toggle("active");
   });
 
@@ -78,16 +79,16 @@ function eventHandlers() {
 
   Array.from(g_thumbnails.children).forEach((x, i) => {
     x.addEventListener("click", (e) => {
-      activateIndicator(i);  
+      activateIndicator(i);
       scrollImgIntoView();
       e.stopPropagation();
-    })
+    });
     x.addEventListener("focusin", (e) => {
-      activateIndicator(i);  
+      activateIndicator(i);
       scrollImgIntoView();
       e.stopPropagation();
-    })
-});
+    });
+  });
 
   document.querySelector(".search").addEventListener("keydown", (e) => {
     e.stopPropagation();
@@ -109,6 +110,8 @@ function eventHandlers() {
 
   document.querySelector(".image-viewer").addEventListener("click", (e) => {
     g_sidebar.classList.toggle("active", false);
+    document.querySelector(".close-sidebar").tabIndex = g_sidebar.classList.contains("active")-1;
+    document.querySelector(".link-to-img > a").tabIndex = g_sidebar.classList.contains("active")-1;
     if (
       window.matchMedia("(min-width: 600px) and (min-height: 600px)").matches
     ) {

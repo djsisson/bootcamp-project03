@@ -13,25 +13,26 @@
   <body>
     <header></header>
     <main>
-      <div class="sidebar">
-        <button  title="close sidebar" class="close-sidebar"> x </button>
-        <div title="Image Link" class="link-to-img">Image Link</div>
-        <div  role="status" aria-live="assertive" class="description" title="Image Description">Image Description</div>
-      </div>
+      
       <div class="search-form">
-        <button title="open-sidebar" class="open-sidebar">☰</button>
-        <button class="random" title="Generate 10 Random Images">?</button>
+        <button type="button" title="open-sidebar" class="open-sidebar">☰</button>
+        <button type="button" class="random" title="Generate 10 Random Images">?</button>
         <form action="" class="search">
           <label for="search"> </label>
           <input id="search" type="search" class="search-input" title="Please enter a valid search term." pattern="^[A-z0-9À-ž][A-z0-9À-ž\s]+" placeholder="Search Term" name="input" maxlength="20" required/>
           <button type="submit" class="submit">Search</button>
         </form>
-        <button class="info-down" title="Image Information">&#9660</button>
+        <button role="tab" aria-controls="tabpanelid" type="button" class="info-down" title="Image Information">&#9660</button>
+      </div>
+      <div role="tabpanel" id="tabpanelid" class="sidebar">
+        <button type="button"  tabindex = "-1" title="close sidebar" class="close-sidebar"> x </button>
+        <div class="link-to-img">Image Link</div>
+        <div  role="status" aria-live="assertive" class="description" title="Image Description">Image Description</div>
       </div>
       <div class="image-viewer">
         <div tabindex ="-1" class="buttonGroup">
-          <button class="prev" tabindex="-1" title="Previous Image">&#9664</button>
-          <button class="next" tabindex="-1" title="Next Image">&#9654</button>
+          <button type="button" class="prev" title="Previous Image">&#9664</button>
+          <button type="button" class="next"  title="Next Image">&#9654</button>
         </div>
         <ul class="image-list">
           <li class="image-item"></li>
@@ -46,20 +47,20 @@
           <li class="image-item"></li>
         </ul>
         <div tabindex ="-1" class="indicatorsList">
-          <button class="indicator" aria-label="First Image"></button>
-          <button class="indicator"  aria-label="Second Image"></button>
-          <button class="indicator"  aria-label="Third Image"></button>
-          <button class="indicator"  aria-label="Fourth Image"></button>
-          <button class="indicator" aria-label="Fifth Image"></button>
-          <button class="indicator" aria-label="Sixth Image"></button>
-          <button class="indicator" aria-label="Seventh Image"></button>
-          <button class="indicator"  aria-label="Eigth Image"></button>
-          <button class="indicator"  aria-label="Ninth Image"></button>
-          <button class="indicator"  aria-label="Tenth Image"></button>
+          <button type="button" class="indicator" title="First Image"></button>
+          <button type="button" class="indicator"  title="Second Image"></button>
+          <button type="button" class="indicator"  title="Third Image"></button>
+          <button type="button" class="indicator"  title="Fourth Image"></button>
+          <button type="button" class="indicator" title="Fifth Image"></button>
+          <button type="button" class="indicator" title="Sixth Image"></button>
+          <button type="button" class="indicator" title="Seventh Image"></button>
+          <button type="button" class="indicator"  title="Eigth Image"></button>
+          <button type="button" class="indicator"  title="Ninth Image"></button>
+          <button type="button" class="indicator"  title="Tenth Image"></button>
         </div>
       </div>
       <div  class="thumbnail-viewer">
-        <button class="prev-thumbnail" title="Previous Thumbnails">&#9664</button>
+        <button type="button" class="prev-thumbnail" title="Previous Thumbnails">&#9664</button>
           <ul class="thumbnail-list">
             <li class="thumbnail-item"></li>
             <li class="thumbnail-item"></li>
@@ -72,7 +73,7 @@
             <li class="thumbnail-item"></li>
             <li class="thumbnail-item"></li>
           </ul>
-          <button class="next-thumbnail" title="Next Thumbnails">&#9654</button>
+          <button type="button" class="next-thumbnail" title="Next Thumbnails">&#9654</button>
         </div>
     </main>
     <footer></footer>
